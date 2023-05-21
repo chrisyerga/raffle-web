@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: "nobel", sans-serif;
+}
+
+body {
+  font-size: 14px;
+}
+
+/* --- Mabble Brand Guide Styles --- */
+
+.color-teal {
+  color: #436372;
+}
+.color-mint {
+  color: #c0e1da;
+}
+.color-powder {
+  color: #fbf9f9;
+}
+.color-coral {
+  color: #f49d79;
+}
+.color-space {
+  color: #1b2f37;
+}
+.color-darkcyan {
+  color: #436372;
+}
+.color-zest {
+  color: #eedd43;
+}
+.bg-midnight {
+  background-color: #232e36;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+ul {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: min(40px, calc(100vw / 1280 * 40));
+  background: transparent;
+}
+
+li {
+  list-style: none;
+  font-size: 13px;
+  font-weight: bold;
+  font-variant-caps: small-caps;
+  letter-spacing: 1px;
+  margin-left: calc(100vw / 1280 * 40);
+}
+
+li.last-item {
+  margin-right: calc(200 * 100vw / 1280);
+}
+
+li a {
+  text-decoration: none;
+  color: #436372;
+  opacity: 100%;
+  transition: color 666ms;
+}
+
+section {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  font-size: 50px;
+}
+
+section.hero {
+  background-image: url("./images/hero-sunset.webp");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: 100vw;
+  position: relative;
+  height: calc(100vw * 0.66667);
+  top: max(-95px, calc(-95px + (100vw / 1280)));
+}
+
+section.xxxxx-about-section {
+  background-image: url("./images/section-two.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: 100vw;
+  position: relative;
+  height: calc(100vw * 0.66667);
+  top: max(-95px, calc(-95px + (100vw / 1280)));
+}
+
+#about-section {
+  width: 100vw;
+}
+.hero-video {
+  /*  width: 100vw;
+  height: 100vh; */
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.section-snuggle {
+  position: relative;
+  top: -95px;
+}
+.hero-logo-overlay {
+  width: 56%;
+  position: relative;
+  top: calc(100vw / 1280);
+  top: -10%;
+}

@@ -1,0 +1,16 @@
+# Various local stuffs
+*.env
+.DS_Store
+.vscode/
+.npm
+.temp
+.cache
+.prettierrc
+secrets/
+
+# local playground/test files
+local/
+
+# modules, binaries, etc
+node_modules/
+build/

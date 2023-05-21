@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="" />
+    <meta charset="utf-8" />
+    <title>The Differents - Reno Luxury Rehab</title>
+    <link rel="canonical" href="https://www.thediffs.co" />
+    <meta property="og:site_name" content="The Differents" />
+    <meta property="og:title" content="The Differents - Reno Luxury Rehab" />
+    <meta property="og:url" content="https://www.thediffs.co" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta property="og:image" content="./images/diffs-social-logo.png" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="90" />
+    <meta itemprop="name" content="The Differents - Reno Luxury Rehab" />
+    <meta itemprop="url" content="https://www.thediffs.co" />
+    <meta
+      itemprop="description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta name="twitter:title" content="The Differents - Reno Luxury Rehab" />
+    <meta name="twitter:image" content="diffs-social-logo.png" />
+    <meta name="twitter:url" content="https://www.thediffs.co" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta
+      name="description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
+and a commitment to long-term sobriety and confidentiality."
+    />
+    <script type="text/javascript" src="landing.js"></script>
+    <link rel="stylesheet" type="text/css" href="./site-styles.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="./images/diffs-favicon-blue.png"
+    />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#hero-section">HOME</a></li>
+        <li><a href="#about-section">ABOUT</a></li>
+        <li><a href="#video-section">THE DIFFERENCE</a></li>
+        <li class="last-item"><a href="#treatment-section">TREATMENT</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero" id="hero-section">
+      <img
+        id="hero-logo-overlay"
+        class="hero-logo-overlay"
+        src="./images/diffs-logo-smile-cyan.png"
+      />
+    </section>
+    <section class="bg-midnight section-snuggle" id="about-section">
+      <img src="./images/section-two.png" />
+      Second Section
+    </section>
+    <section id="video-section">
+      <video
+        id="background-video"
+        class="hero-video"
+        autoplay
+        loop
+        muted
+        poster="https://assets.codepen.io/6093409/river.jpg"
+      >
+        <source
+          src="./images/thediffs-walkthrough-480p-50s.mov"
+          type="video/mp4"
+        />
+      </video>
+
+      Facilities
+    </section>
+    <section id="treatment-section">Third Section</section>
+
+    <h1>LANDING</h1>
+
+    <p>The Differents</p>
+
+    <script>
+      // Show the video background when scrolled into viewport
+      const videoObserver = new IntersectionObserver(
+        function (entries) {
+          // isIntersecting is true when element and viewport are overlapping
+          // isIntersecting is false when element and viewport don't overlap
+          if (entries[0].isIntersecting === true) {
+            console.log("Element has just become visible in screen");
+            document.getElementById("background-video").style.visibility =
+              "visible";
+          } else {
+            console.log("Element has just become hidden");
+            document.getElementById("background-video").style.visibility =
+              "hidden";
+          }
+        },
+        { threshold: [0] }
+      );
+      videoObserver.observe(document.querySelector("#video-section"));
+
+      const navObserver = new IntersectionObserver(
+        function (entries) {
+          if (entries[0].isIntersecting === true) {
+            document.querySelectorAll("ul > li > a").forEach((link) => {
+              link.classList = ["color-darkcyan"];
+            });
+          } else {
+            document.querySelectorAll("ul > li > a").forEach((link) => {
+              link.classList = ["color-powder"];
+            });
+          }
+        },
+        { threshold: [0] }
+      );
+      navObserver.observe(document.querySelector("#hero-logo-overlay"));
+    </script>
+  </body>
+</html>
