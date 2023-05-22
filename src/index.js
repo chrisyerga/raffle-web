@@ -18,15 +18,17 @@ exec('figlet "diffs.ai"', (err, output) => {
 (async () => {
   try {
     const gen = new quotes.OpenAIQuoteGenerator();
-    await gen.initialize();
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
-    console.log(`===> ${await gen.generateQuote()}`);
+    const quote = await gen.generateQuoteWithPrompt("famous guitarist");
+
+    console.log(`  "\n    ${quote}\n  "`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
+    // console.log(`===> ${await gen.generateQuote()}`);
   } catch (err) {
     console.error(err);
   }
