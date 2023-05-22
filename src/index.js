@@ -13,4 +13,21 @@ exec('figlet "diffs.ai"', (err, output) => {
   // log the output received from the command
   console.log(output.substring(1));
 });
-quotes.test();
+
+//? IIFE to test async
+(async () => {
+  try {
+    const gen = new quotes.OpenAIQuoteGenerator();
+    await gen.initialize();
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+    console.log(`===> ${await gen.generateQuote()}`);
+  } catch (err) {
+    console.error(err);
+  }
+})();
