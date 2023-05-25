@@ -1,23 +1,22 @@
 require("dotenv").config();
-const { Configuration, OpenAIApi } = require("openai");
+const openaiAPI = require("./openai_api");
+//const { Configuration, OpenAIApi } = require("openai");
 
 //* ===== Config defaults =====
 // Fastest and cheapest model tuned for chat prompts
 const DEFAULT_AI_MODEL = "gpt-3.5-turbo";
 
 // A little bit of variation so the first quote isn't always the same one
-const DEFAULT_TEMPERATURE = 0.85;
+const DEFAULT_TEMPERATURE = 1.85;
 const DEFAULT_TOP_P = 0;
-
-// Grab 5 quotes at a time to fill the cache
-const QUOTES_BATCH_SIZE = 5;
 
 // The prompts for the AI
 const INITIAL_PROMPT =
-  "I want a short inspirational quote. " +
+  "I want a short (around 15 words) inspirational quote. " +
   "It should be motivational, positive and life affirming. " +
   "It would be helpful if the quote is related to recovery, but not necessary. " +
   "It could be from a famous poet, author, actor, athlete, philosopher or anonymous. " +
+  "The quote should be 20 words or less in length." +
   "The response should include the quote and the author but nothing else";
 const initialPromptMessages = [
   { role: "system", content: "You are a helpful assistant." },
@@ -31,13 +30,7 @@ const initialPromptMessages = [
 // waiting for the AI to respond when folks are on the site.
 class OpenAIQuoteGenerator {
   constructor() {
-    this._configuration = new Configuration({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
-    // Connect to openai.com and fill the quotes cache
-    // We let any exceptions pop out of this to the caller
-    this._openaiAPI = new OpenAIApi(this._configuration);
+    this._openaiAPI = openaiAPI;
   }
 
   async generateQuoteWithPrompt(userPrompt) {
@@ -64,12 +57,47 @@ class OpenAIQuoteGenerator {
     }
     try {
       var response = await this._openaiAPI.createChatCompletion(request);
-      generatedQuote = response.data.choices[0].message.content;
 
       //! DEBUG INFO
       this.logAPIResponse(request, response);
     } catch (err) {
-      console.log(err);
+      console.log("WE_GOT_ERR: " + err);
+      return generatedQuote;
+    }
+
+    // See if it actually worked first
+    if (response.status != 200) {
+      throw new Error(`AI failed with error: ${response.statusText}`);
+    } else if (response.data.choices[0].finish_reason != "stop") {
+      throw new Error(
+        `[AI completed with unexpected reason ${response.data.choices[0].finish_reason}].` +
+          `It produced this: ${response.data.choices[0].message.content}`
+      );
+    }
+
+    // Sometimes the response is something like "I apologize, but..."
+    // try to sanitize the output to handle these cases
+    const splitLines = response.data.choices[0].message.content
+      .trim()
+      .split(/\n+/);
+    {
+      const line = splitLines.pop();
+      if (line.trim().length > 0) {
+        generatedQuote = line;
+      }
+    }
+
+    // Also...sometimes the quote is split up into two lines. In
+    // those cases the second line is the attribution which will be
+    // short. This heuristic seems to work!
+    if (splitLines.length && generatedQuote.length < 30) {
+      const otherLine = splitLines.pop();
+      if (otherLine.trim().length > 0) {
+        console.log(
+          "### Detected second-line quote. Returning this instead: " + otherLine
+        );
+        generatedQuote = otherLine;
+      }
     }
 
     return generatedQuote;
