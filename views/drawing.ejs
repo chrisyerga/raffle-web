@@ -1,0 +1,191 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="" />
+    <meta charset="utf-8" />
+    <title>The Differents - Reno Luxury Rehab</title>
+    <link rel="canonical" href="https://www.thediffs.co" />
+    <meta property="og:site_name" content="The Differents" />
+    <meta property="og:title" content="The Differents - Reno Luxury Rehab" />
+    <meta property="og:url" content="https://www.thediffs.co" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta property="og:image" content="./images/diffs-social-logo.png" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="90" />
+    <meta itemprop="name" content="The Differents - Reno Luxury Rehab" />
+    <meta itemprop="url" content="https://www.thediffs.co" />
+    <meta
+      itemprop="description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta name="twitter:title" content="The Differents - Reno Luxury Rehab" />
+    <meta name="twitter:image" content="diffs-social-logo.png" />
+    <meta name="twitter:url" content="https://www.thediffs.co" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality."
+    />
+    <meta
+      name="description"
+      content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
+and a commitment to long-term sobriety and confidentiality."
+    />
+    <script type="text/javascript" src="landing.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/site-styles.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="../images/diffs-favicon-blue.png"
+    />
+
+    <style>
+      /* body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      } */
+
+      h1 {
+        text-align: center;
+        font-size: 2.2rem;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        align-self: center;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      .form-group button {
+        background-color: #555;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .form-group button:hover {
+        background-color: #45a049;
+      }
+
+      .container {
+        padding-top: 40px;
+      }
+
+      .container p {
+        padding: 10px;
+      }
+
+      .drawing-container {
+        margin: 0 auto;
+        max-width: 512px;
+      }
+      .drawing-container p {
+        text-align: center;
+        padding-bottom: 25px;
+      }
+
+      .countdown-container {
+        max-width: 300px;
+        border-radius: 10px;
+        background-color: #555;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .countdown-container p {
+        background-color: #555;
+        color: #ff5;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('header', {user: 'Chris Yerga'}) %>
+
+    <div class="bg-mint" id="emitter">
+      <div class="container bg-mint">
+        <h1 style="padding-bottom: 24px">Raffle Drawing</h1>
+      </div>
+      <div style="padding: 16px"></div>
+      <div class="drawing-container">
+        <p>Next Drawing at 4:00PM</p>
+      </div>
+      <div class="countdown-container">
+        <p id="drawing-status">0:15:10</p>
+      </div>
+      <div style="padding-bottom: 500px"></div>
+    </div>
+  </body>
+  <script>
+    const entries = [
+      "John Hanrahan",
+      "Heather Smyly",
+      "Gregg Champion",
+      "Oz Rippey",
+      "Murphy",
+      "Joe Rippey",
+      "Chris Yerga",
+      "Denise Everett",
+      "Monika Marsh",
+      "Sparkle Pony",
+    ];
+    var entryIndex = 0;
+    var loops = 0;
+    const status = document.getElementById("drawing-status");
+
+    function updateStatus() {
+      entryIndex = (entryIndex + 1) % entries.length;
+      status.innerText = entries[entryIndex];
+
+      var interval = 50;
+      loops++;
+      if (loops < 15) {
+        interval = 30;
+      } else if (loops < 22) {
+        interval = 75;
+      } else if (loops < 40) {
+        interval = 100;
+      } else if (loops < 48) {
+        interval = 300;
+      } else if (loops < 51) {
+        interval = 600;
+      } else if (loops < 53) {
+        interval = 800;
+      } else {
+        interval = 100000;
+        status.style.fontSize = "30pt";
+        status.style.color = "#fca";
+      }
+      setTimeout(updateStatus, interval);
+    }
+
+    setTimeout(updateStatus, 250);
+    status.innerText = "poop";
+  </script>
+</html>

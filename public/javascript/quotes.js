@@ -61,7 +61,7 @@ class OpenAIQuoteGenerator {
       //! DEBUG INFO
       this.logAPIResponse(request, response);
     } catch (err) {
-      console.log("WE_GOT_ERR: " + err);
+      console.log("Error fetching quote: " + err);
       return generatedQuote;
     }
 

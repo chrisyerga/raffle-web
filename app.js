@@ -75,8 +75,6 @@ app.set("view engine", "ejs");
 const db = require("./src/util/mongodb");
 db.connect(process.env.MONGODB_DB_NAME);
 
-require("express");
-
 // * App Routes
 app.use(require("./src/routes/create"));
 app.use(require("./src/routes/register"));
