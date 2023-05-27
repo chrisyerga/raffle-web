@@ -59,6 +59,11 @@ app.use(
   })
 );
 
+// * Morgan request logger. Use the "combined" format which logs
+// * IP address, UserAgent, etc.
+var logger = require("morgan");
+app.use(logger("combined"));
+
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {
