@@ -5,6 +5,8 @@ require("dotenv").config();
 
 // * node.js core
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
 // * 3rd party modules
 require("colors");
@@ -63,6 +65,16 @@ app.use(
 // * IP address, UserAgent, etc.
 var logger = require("morgan");
 app.use(logger("combined"));
+
+// And log to file as well
+let logStream = fs.createWriteStream(`${process.env.LOG_FILE_PATH}`, {
+    flags: 'a'
+})
+app.use(logger('combined', {
+    stream: logStream
+}))
+
+
 
 // * route "/" to "/today"
 app.use((req, res, next) => {
