@@ -66,15 +66,17 @@ app.use(
 var logger = require("morgan");
 app.use(logger("combined"));
 
-// And log to file as well
-let logStream = fs.createWriteStream(`${process.env.LOG_FILE_PATH}`, {
-    flags: 'a'
-})
-app.use(logger('combined', {
-    stream: logStream
-}))
-
-
+// Log to file also, if configured in .env
+if (process.env.LOG_FILE_PATH) {
+  let logStream = fs.createWriteStream(`${process.env.LOG_FILE_PATH}`, {
+    flags: "a",
+  });
+  app.use(
+    logger("combined", {
+      stream: logStream,
+    })
+  );
+}
 
 // * route "/" to "/today"
 app.use((req, res, next) => {
