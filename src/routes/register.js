@@ -54,6 +54,23 @@ router.get("/raffle/drawing", async (request, response, next) => {
   });
 });
 
+router.get("/raffle/details/:id", async (request, response, next) => {
+  // Look up the requested id
+  var entrant;
+
+  try {
+    const entrant = await Registrant.findById(request.params.id);
+    console.log(`Entrant: ${JSON.stringify(entrant)}`.blue);
+    response.render("entry-details", {
+      title: "Drawing Results",
+      entrant: entrant,
+      page: request.path,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.get(
   "/raffle/email-registered/:email",
   async (request, response, next) => {

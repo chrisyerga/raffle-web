@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality." />
   <meta name="description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
 and a commitment to long-term sobriety and confidentiality." />
-  <link rel="stylesheet" type="text/css" href="../css/site-styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/site-styles.css" />
   <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
   <link rel="shortcut icon" type="image/x-icon" href="../images/diffs-favicon-blue.png" />
 
@@ -188,15 +188,15 @@ and a commitment to long-term sobriety and confidentiality." />
   <%- include('header', {user: 'Chris Yerga'}) %>
   <div class="bg-mint" id="wrapper">
     <div class="container bg-mint">
-      <h1 style="padding-bottom: 8px">Raffle Admin Console</h1>
+      <h1 style="padding-bottom: 8px">Company Directory</h1>
     </div>
     <div class="table-header">
-      <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
+      <p style="text-align: center"><%= people.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
     </div>
 
     <div class="user-list">
-      <% entries.forEach(function(user, index){ %>
-      <a href="details/<%=user.id%>">
+      <% people.forEach(function(user, index){ %>
+      <a href="../details/<%=user.id%>">
         <div class=" user-card" db-index="<%=index%>">
           <div class="index-number"><%= index+1 %></div>
           <div class="user-details">

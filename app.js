@@ -95,6 +95,7 @@ app.use(require("./src/routes/create"));
 app.use(require("./src/routes/register"));
 app.use(require("./src/routes/test")); //! Only in development mode?
 app.use(require("./src/routes/admin"));
+app.use(require("./src/routes/company"));
 
 // Unhandled routes return 404
 app.all("*", (req, res) => {
