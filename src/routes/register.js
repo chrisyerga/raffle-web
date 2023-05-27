@@ -5,9 +5,6 @@ const Registrant = require("../model/registrant");
 const router = express.Router();
 
 router.get("/register", async (request, response, next) => {
-  //! read shit from mongo
-  //const chores = await Chore.find();
-  //  response.send("Hello <b>World!</b>");
   response.render("register", {
     title: "Test Page",
     message: "Hello there!",
@@ -29,9 +26,6 @@ router.post("/register", async (request, response, next) => {
 });
 
 router.get("/registration-complete", async (request, response, next) => {
-  //! read shit from mongo
-  //const chores = await Chore.find();
-  //  response.send("Hello <b>World!</b>");
   response.render("registration-complete", {
     title: "Test Page",
     message: "Hello there!",
