@@ -127,10 +127,6 @@ and a commitment to long-term sobriety and confidentiality." />
   <div class="bg-mint" id="emitter">
     <script src="../javascript/confetti.js"></script>
     <canvas id="confetti-canvas" width="500" height="800"></canvas>
-    <script>
-      startConfetti();
-    </script>
-
     <div class="container bg-mint">
       <h1 style="padding-bottom: 24px">Raffle Drawing</h1>
     </div>
@@ -148,6 +144,32 @@ and a commitment to long-term sobriety and confidentiality." />
   var entryIndex = 0;
   var loops = 0;
   const status = document.getElementById("drawing-status");
+  var animationIterations = 0;
+
+  function animateWinner() {
+    var subIteration = animationIterations % 50;
+    var step = Math.abs(20 - subIteration);
+    var size = Math.ceil(step / 40 * 20);
+
+    if (subIteration <= 40) {
+      status.style.fontSize = `${size+32}pt`;
+    }
+    ++animationIterations;
+    if (animationIterations >= 500) {
+      // Stop the celebration
+      stopConfetti();
+    } else {
+      setTimeout(animateWinner, 10);
+    }
+  }
+
+  function declareWinner(winner) {
+    startConfetti();
+
+    // Animate the winner's name
+    animationIterations = 0;
+    setTimeout(animateWinner, 30);
+  }
 
   function updateStatus() {
     entryIndex = (entryIndex + 1) % entries.length;
@@ -173,13 +195,13 @@ and a commitment to long-term sobriety and confidentiality." />
       interval = 1200;
     } else {
       interval = 0;
+      declareWinner(entries[entryIndex]);
     }
     if (interval)
       setTimeout(updateStatus, interval);
   }
 
   setTimeout(updateStatus, 250);
-  status.innerText = "poop";
 </script>
 
 </html>
