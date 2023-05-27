@@ -49,6 +49,16 @@ app.use(
 // * Static File Serving
 app.use(express.static("public"));
 
+// * Form POST parsing
+var bodyParser = require("body-parser");
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(
+  bodyParser.urlencoded({
+    // to support URL-encoded bodies
+    extended: true,
+  })
+);
+
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {

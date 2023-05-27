@@ -1,5 +1,6 @@
 const express = require("express");
 const Chore = require("../model/registrant");
+const Registrant = require("../model/registrant");
 
 const router = express.Router();
 
@@ -15,7 +16,15 @@ router.get("/register", async (request, response, next) => {
 });
 
 router.post("/register", async (request, response, next) => {
-  //! grab form and add to DB
+  var body = request.body;
+  registration = new Registrant({
+    name: body.name,
+    email: body.email,
+    role: body.title,
+    organization: body.company,
+    phone: body.phone,
+  });
+  await registration.save();
   response.redirect("registration-complete");
 });
 
@@ -31,12 +40,13 @@ router.get("/registration-complete", async (request, response, next) => {
 });
 
 router.get("/drawing", async (request, response, next) => {
-  //! read shit from mongo
-  //const chores = await Chore.find();
-  //  response.send("Hello <b>World!</b>");
+  // Retrieve all the raffle entrants. Don't cache it at all
+  const entrants = await Registrant.find();
+  const names = entrants.map((entry) => entry.name);
+
   response.render("drawing", {
-    title: "Test Page",
-    message: "Hello there!",
+    title: "Drawing Results",
+    names: names,
     page: request.path,
   });
 });

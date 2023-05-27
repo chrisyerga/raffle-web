@@ -127,7 +127,6 @@ and a commitment to long-term sobriety and confidentiality."
   </head>
   <body>
     <%- include('header', {user: 'Chris Yerga'}) %>
-
     <div class="bg-mint" id="emitter">
       <div class="container bg-mint">
         <h1 style="padding-bottom: 24px">Raffle Drawing</h1>
@@ -143,18 +142,8 @@ and a commitment to long-term sobriety and confidentiality."
     </div>
   </body>
   <script>
-    const entries = [
-      "John Hanrahan",
-      "Heather Smyly",
-      "Gregg Champion",
-      "Oz Rippey",
-      "Murphy",
-      "Joe Rippey",
-      "Chris Yerga",
-      "Denise Everett",
-      "Monika Marsh",
-      "Sparkle Pony",
-    ];
+    const entries = <%- JSON.stringify(names) %>
+
     var entryIndex = 0;
     var loops = 0;
     const status = document.getElementById("drawing-status");
