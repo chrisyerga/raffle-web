@@ -3,7 +3,7 @@ const Registrant = require("../model/registrant");
 
 const router = express.Router();
 
-router.get("/raffle-admin", async (request, response, next) => {
+router.get("/raffle/admin", async (request, response, next) => {
   // Retrieve all the raffle entrants. Don't cache it at all
   const entries = await Registrant.find();
 

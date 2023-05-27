@@ -6,12 +6,12 @@ const registrantSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
   },
   email: {
     type: String,
     required: false,
-    unique: false,
+    unique: true,
   },
   phone: {
     type: String,
@@ -25,8 +25,8 @@ const registrantSchema = new Schema({
   },
   role: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
   notes: {
     type: String,
