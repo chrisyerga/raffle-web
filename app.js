@@ -89,6 +89,7 @@ db.connect(process.env.MONGODB_DB_NAME);
 app.use(require("./src/routes/create"));
 app.use(require("./src/routes/register"));
 app.use(require("./src/routes/test")); //! Only in development mode?
+app.use(require("./src/routes/admin"));
 
 // Unhandled routes return 404
 app.all("*", (req, res) => {
