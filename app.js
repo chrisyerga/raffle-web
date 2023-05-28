@@ -163,6 +163,7 @@ app.use((req, res, next) => {
 const requireAuthenticatedUser = (req, res, next) => {
   //* For local development, OAUTH doesn't work so just allow it
   if (process.env.FAKE_GOOGLE_AUTH) {
+    console.log("  SKIPPING AUTH CHECK   ".bgRed.black);
     next();
   }
 
