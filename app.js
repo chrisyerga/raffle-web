@@ -113,11 +113,25 @@ passport.use(
       console.log("[AUTH] called strategy callback in app.js");
       console.log("GoogleID = " + profile.id);
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        console.log("User.findorcreate back - " + err + user);
         return done(err, user);
       });
     }
   )
 );
+
+passport.serializeUser((user, done) => {
+  console.log("### serializeUser called!!!!!!!!!!!!!");
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log("### deserializeUser called!!!!!!!!!!!!!");
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
+});
+
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {
