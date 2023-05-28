@@ -120,7 +120,6 @@ passport.use(
       if (existing) {
         console.log("UZER=" + JSON.stringify(existing));
         return done(null, existing);
-        console.log("UZER=" + JSON.stringify(existing));
       } else {
         console.log("No user. Gotta create one");
         const newUser = new User({ googleId: profile.id });
@@ -144,9 +143,10 @@ passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
     console.log("Found user in DB: " + JSON.stringify(user));
     done(null, user);
-  }).catch(err) {
+  }).catch((err) => {
     console.log("DB lookup of user failed with err=" + err)
-  }
+    done(err, null);
+  })
 });
 
 // * route "/" to "/today"
