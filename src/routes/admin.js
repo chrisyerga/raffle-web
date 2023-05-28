@@ -22,12 +22,8 @@ const requireAuthenticatedUser = (req, res, next) => {
     "   jump to auth. will redirect to: " + req.session.postAuthRedirect
   );
 
-  //! I think this does what we want
+  // Just shoot them right to google login
   res.redirect("/auth/google");
-  // response.render("login-required", {
-  //   title: "Please Login",
-  //   page: request.path,
-  // });
 };
 
 router.get(
