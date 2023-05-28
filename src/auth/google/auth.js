@@ -67,12 +67,15 @@ router.get(
 
 router.get("/auth/google/success", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/success".green);
-  return next();
+  console.log("   *** USER=" + JSON.stringify(req.user));
+  response.send("SUCCESS auth");
+  //  return next();
 });
 
 router.get("/auth/google/failure", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/failure".red);
-  return next();
+  response.send("ERROR auth");
+  //  return next();
 });
 
 module.exports = router;
