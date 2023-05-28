@@ -95,8 +95,6 @@ app.use(
 
 // Google OAUTH
 const User = require("./src/model/user");
-const auth = require("./src/auth/google/auth");
-app.use(auth);
 const passport = require("passport");
 app.use(passport.initialize());
 app.use(passport.session());
@@ -207,6 +205,8 @@ app.use(require("./src/routes/register"));
 app.use(require("./src/routes/test")); //! Only in development mode?
 app.use(require("./src/routes/admin"));
 app.use(require("./src/routes/company"));
+const auth = require("./src/auth/google/auth");
+app.use(auth);
 
 // Unhandled routes return 404
 app.all("*", (req, res) => {
