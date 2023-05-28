@@ -78,6 +78,41 @@ if (process.env.LOG_FILE_PATH) {
   );
 }
 
+// Session manager using mongo for storage
+const session = require("express-session");
+if (!process.env.SESSION_COOKIE_SECRET) {
+  console.error(
+    "SESSION_COOKIE_SECRET not set. Auth and cookies will not work".bgRed.black
+  );
+}
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_COOKIE_SECRET,
+  })
+);
+
+// Google OAUTH
+const auth = require("./src/auth/google/auth");
+app.use(auth);
+const passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth2").Strategy;
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://beta.the-differents.com:5662/auth/google/redirect",
+      passReqToCallback: true,
+    },
+    function (request, accessToken, refreshToken, profile, done) {
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  )
+);
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {
