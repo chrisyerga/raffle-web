@@ -94,7 +94,7 @@ app.use(
 );
 
 // Google OAUTH
-User = require("./src/model/user");
+const User = require("./src/model/user");
 const auth = require("./src/auth/google/auth");
 app.use(auth);
 const passport = require("passport");
@@ -117,7 +117,7 @@ passport.use(
       const existing = await User.findOne({ googleId: profile.id });
       console.log("Existing user? = " + existing);
       if (existing) {
-        console.log("UZER=" + JSON.stringify(user));
+        console.log("UZER=" + JSON.stringify(existing));
       } else {
         console.log("No user. Gotta create one");
         const newUser = new User({ googleId: profile.id });
