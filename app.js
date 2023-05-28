@@ -135,14 +135,18 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   console.log("### serializeUser called!!!!!!!!!!!!!");
+  console.log(JSON.stringify(user));
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
   console.log("### deserializeUser called!!!!!!!!!!!!!");
   User.findById(id).then((user) => {
+    console.log("Found user in DB: " + JSON.stringify(user));
     done(null, user);
-  });
+  }).catch(err) {
+    console.log("DB lookup of user failed with err=" + err)
+  }
 });
 
 // * route "/" to "/today"
