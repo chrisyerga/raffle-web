@@ -170,11 +170,11 @@ const requireAuthenticatedUser = (req, res, next) => {
   // Otherwise check if we need to have them login. If so, stash away
   // the requested path for a later redirect
   if (req.user) {
-consolr.log("   auth protected and we have user  ".bgGreen.black);
+    consolr.log("   auth protected and we have user  ".bgGreen.black);
     next();
   }
   req.session.postAuthRedirect = req.path;
-console.log("   need auth - redirect to " + req.session.postAuthRedirect);
+  console.log("   need auth - redirect to " + req.session.postAuthRedirect);
 
   //! I think this does what we want
   response.redirect("/auth/google");
@@ -211,7 +211,6 @@ const db = require("./src/util/mongodb");
 db.connect(process.env.MONGODB_DB_NAME);
 
 // * App Routes
-app.use(require("./src/routes/create"));
 app.use(require("./src/routes/register"));
 app.use(require("./src/routes/test")); //! Only in development mode?
 app.use(require("./src/routes/admin"));
