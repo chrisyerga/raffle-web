@@ -53,17 +53,17 @@ async function populateSampleData() {
     try {
       const adam = new Registrant({
         name: "Adam Avanian",
-        email: "adam@goer.com",
+        email: "adam@apn.com",
         phone: "212-555-1212",
-        organization: "Garden of Eden Recovery",
+        organization: "All Points North",
         role: "Business Development Director",
         notes: "Friends with eve@goer.com",
       });
       const bridget = new Registrant({
         name: "Bridget Buddig",
-        email: "bridget@dogooder.com",
+        email: "bridget@apn.com",
         phone: "309-622-1513",
-        organization: "Serenity Recovery",
+        organization: "All Points North",
         role: "Lead Interventionist",
       });
       const john = new Registrant({

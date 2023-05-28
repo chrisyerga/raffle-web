@@ -25,6 +25,17 @@ router.post("/raffle/register", async (request, response, next) => {
   response.redirect("registration-complete");
 });
 
+router.post("/raffle/details/:id", async (request, response, next) => {
+  var body = request.body;
+  const entrant = await Registrant.findById(request.params.id);
+  console.log(`Editing notes for: ${JSON.stringify(entrant)}`.blue);
+  entrant.notes = body.notes;
+  await entrant.save();
+  response.redirect(
+    `/raffle/details/${request.params.id}?toastMessage=${body.toastMessage}`
+  );
+});
+
 router.get("/raffle/registration-complete", async (request, response, next) => {
   // !Must be a simpler way to count. Read the manual
   const entries = await Registrant.find();
@@ -65,6 +76,8 @@ router.get("/raffle/details/:id", async (request, response, next) => {
       title: "Drawing Results",
       entrant: entrant,
       page: request.path,
+      id: request.params.id,
+      toastMessage: request.query.toastMessage,
     });
   } catch (err) {
     console.log(err);

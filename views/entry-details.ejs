@@ -100,21 +100,6 @@ and a commitment to long-term sobriety and confidentiality." />
       margin-right: 10px;
     }
 
-    .table-header p {
-      margin: 20px;
-    }
-
-    div.scroll-container {
-      background-color: #666;
-      width: 600px;
-      height: 150px;
-      overflow-x: hidden;
-      overflow-y: auto;
-      text-align: center;
-      padding: 20px;
-      margin: 0 auto;
-    }
-
     #brand-url {
       text-decoration: none;
       color: #777;
@@ -123,6 +108,55 @@ and a commitment to long-term sobriety and confidentiality." />
     #brand-site {
       text-decoration: none;
       color: #777;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group button {
+      background-color: #555;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+
+    #notes {
+      resize: none;
+      border: 1px;
+      border-style: solid;
+      width: 100%;
+      padding: 8px;
+    }
+
+    .toast {
+      background-color: lightgreen;
+      color: #000;
+      font-size: 12pt;
+      width: fit-content;
+      padding: 8px;
+      border-radius: 5px;
+      display: none;
     }
   </style>
 </head>
@@ -288,12 +322,38 @@ and a commitment to long-term sobriety and confidentiality." />
         <p><%= entrant.role %></p>
         <p><%= entrant.email %></p>
         <p><%= entrant.phone %></p>
+        <div style="padding: 15px"></div>
+
+
+
+
+        <form action="../details/<%=id%>" id="form" method="post">
+          <div class="form-group">
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes" rows="5"><%=entrant.notes%></textarea>
+            <input type="hidden" name="toastMessage" id="toastMessage" value="Notes saved successfully" />
+          </div>
+          <div class="form-group">
+            <button type="submit" id="submit-button" onclick="submitClicked()">
+              Save Notes
+            </button>
+          </div>
+          <div id="toast" class="toast"><%=toastMessage%></div>
+        </form>
       </div>
     </div>
     <div style="padding-bottom: 500px"></div>
   </div>
 
   <script>
+    // If there was a toast, show it and set a timer to hide it again
+    if ('<%=toastMessage%>'.length) {
+      document.getElementById('toast').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('toast').style.display = 'none';
+      }, 2000)
+    }
+
     function getLogo(brand) {
       const logos = brand.logos;
       var bestLogo;
