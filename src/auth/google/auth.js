@@ -50,7 +50,13 @@ router.get(
 //   return next();
 // });
 
-router.get("/auth/google/redirect", passport.authenticate("google"));
+router.get(
+  "/auth/google/redirect",
+  passport.authenticate("google", { failureRedirect: "/authfail" }),
+  function (req, res) {
+    res.redirect("/profile");
+  }
+);
 
 router.get("/auth/google/success", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/success".green);
