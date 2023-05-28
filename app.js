@@ -169,6 +169,13 @@ app.use((req, res, next) => {
   console.log(" isAuthenticated edxists? " + req.isAuthenticated);
   console.log(" req auth state=" + req.isAuthenticated());
   //  console.log("  > authed user=" + JSON.stringify(req.session.passport.user));
+  if (req.isAuthenticated) {
+    console.log(
+      req.isAuthenticated()
+        ? "   AUTHENTICATED USER   ".bgBlue
+        : "   NOT AUTHED USER   ".bgMagenta
+    );
+  }
   console.log(" -> full session=" + JSON.stringify(req.session));
 
   next();
