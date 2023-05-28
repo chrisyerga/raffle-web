@@ -29,14 +29,17 @@ router.get(
 router.get("/auth/google/success", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/success".green);
   console.log("   *** USER=" + JSON.stringify(request.user));
-  response.redirect(request.session.postAuthRedirect);
+  response.redirect("/raffle/admin");
+  //  response.redirect(request.session.postAuthRedirect);
   //  response.send("SUCCESS auth");
   //  return next();
 });
 
 router.get("/auth/google/failure", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/failure".red);
-  response.send("ERROR auth");
+  response.send(
+    "Login failed. This page is only available to employees of The Differents"
+  );
   //  return next();
 });
 

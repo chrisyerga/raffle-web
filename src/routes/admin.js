@@ -6,19 +6,21 @@ const router = express.Router();
 
 const requireAuthenticatedUser = (req, res, next) => {
   //* For local development, OAUTH doesn't work so just allow it
-  if (process.env.FAKE_GOOGLE_AUTH) {
+  if (process.env.FAKE_GOOGLE_AUTH.length) {
     console.log("  SKIPPING AUTH CHECK   ".bgRed.black);
-    next();
+    return next();
   }
 
   // Otherwise check if we need to have them login. If so, stash away
   // the requested path for a later redirect
   if (req.user) {
-	  console.log("   auth barrier -- have user already!   ".bgGreen.black);
-    next();
+    console.log("   auth barrier -- have user already!   ".bgGreen.black);
+    return next();
   }
   req.session.postAuthRedirect = req.path;
-console.log("   jump to auth. will redirect to: " + req.session.postAuthRedirect);
+  console.log(
+    "   jump to auth. will redirect to: " + req.session.postAuthRedirect
+  );
 
   //! I think this does what we want
   res.redirect("/auth/google");
