@@ -99,7 +99,7 @@ const auth = require("./src/auth/google/auth");
 app.use(auth);
 const passport = require("passport");
 app.use(passport.initialize());
-app.use(passport.session());
+//???app.use(passport.session());
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
 console.log("[AUTH] Creatning passport Google strategy");
 passport.use(
@@ -192,6 +192,17 @@ app.all("*", (req, res) => {
   console.log("404 for path " + req.path);
   res.status(404).sendfile("./public/html/404.html", null);
   //res.status(404).send("<h1>404! Page not found</h1>");
+});
+
+const checkUserLoggedIn = (req, res, next) => {
+  req.user ? next() : res.sendStatus(401);
+};
+
+// Debug dump user on every request
+app.use((req, res, next) => {
+  console.log("  > request path=" + req.path);
+  console.log("  > authed user=" + JSON.stringify(req.user));
+  next();
 });
 
 // * Set up test data if needed
