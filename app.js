@@ -98,6 +98,7 @@ const auth = require("./src/auth/google/auth");
 app.use(auth);
 const passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
+console.log("[AUTH] Creatning passport Google strategy");
 passport.use(
   new GoogleStrategy(
     {
@@ -107,6 +108,8 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
+      console.log("[AUTH] called strategy callback in app.js");
+	   console.log("GoogleID = " + profile.id);
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
         return done(err, user);
       });
@@ -148,6 +151,7 @@ app.use(require("./src/routes/company"));
 
 // Unhandled routes return 404
 app.all("*", (req, res) => {
+	console.log("404 for path " + req.path);
   res.status(404).sendfile("./public/html/404.html", null);
   //res.status(404).send("<h1>404! Page not found</h1>");
 });
