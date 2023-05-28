@@ -110,13 +110,21 @@ passport.use(
       callbackURL: "http://beta.the-differents.com:5662/auth/google/redirect",
       passReqToCallback: true,
     },
-    function (request, accessToken, refreshToken, profile, done) {
+    async function (request, accessToken, refreshToken, profile, done) {
       console.log("[AUTH] called strategy callback in app.js");
       console.log("GoogleID = " + profile.id);
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        console.log("User.findorcreate back - " + user + "(ERR=" + err);
-        return done(err, user);
-      });
+      console.log("About to Mongo the shit out of this user");
+      const existing = await User.findOne({ googleId: profile.id });
+      console.log("Existing user? = " + existing);
+      if (existing) {
+        console.log("UZER=" + JSON.stringify(user));
+      } else {
+        console.log("No user. Gotta create one");
+        const newUser = new User({ googleId: profile.id });
+        console.log("Trying to save...");
+        await newUser.save();
+        console.log("Back from save...");
+      }
     }
   )
 );
