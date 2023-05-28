@@ -6,7 +6,7 @@ const router = express.Router();
 
 const requireAuthenticatedUser = (req, res, next) => {
   //* For local development, OAUTH doesn't work so just allow it
-  if (process.env.FAKE_GOOGLE_AUTH.length) {
+  if (process.env.FAKE_GOOGLE_AUTH && process.env.FAKE_GOOGLE_AUTH.length) {
     console.log("  SKIPPING AUTH CHECK   ".bgRed.black);
     return next();
   }
