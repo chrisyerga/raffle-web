@@ -116,7 +116,10 @@ passport.use(
       console.log("About to Mongo the shit out of this user");
       const existing = await User.findOne({ googleId: profile.id });
       console.log("Existing user? = " + existing);
+
       if (existing) {
+        console.log("UZER=" + JSON.stringify(existing));
+        return done(null, existing);
         console.log("UZER=" + JSON.stringify(existing));
       } else {
         console.log("No user. Gotta create one");
@@ -124,6 +127,7 @@ passport.use(
         console.log("Trying to save...");
         await newUser.save();
         console.log("Back from save...");
+        return done(null, newUser);
       }
     }
   )
