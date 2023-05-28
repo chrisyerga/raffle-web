@@ -116,6 +116,9 @@ passport.use(
       console.log("About to Mongo the shit out of this user");
       const existing = await User.findOne({ googleId: profile.id });
       console.log("Existing user? = " + existing);
+      console.log("   Google profile=" + JSON.stringify(profile));
+      console.log("   Google access token=" + JSON.stringify(accessToken));
+      console.log("   Google refresh token=" + JSON.stringify(refreshToken));
 
       if (existing) {
         console.log("UZER=" + JSON.stringify(existing));
@@ -140,13 +143,15 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   console.log("### deserializeUser called!!!!!!!!!!!!!");
-  User.findById(id).then((user) => {
-    console.log("Found user in DB: " + JSON.stringify(user));
-    done(null, user);
-  }).catch((err) => {
-    console.log("DB lookup of user failed with err=" + err)
-    done(err, null);
-  })
+  User.findById(id)
+    .then((user) => {
+      console.log("Found user in DB: " + JSON.stringify(user));
+      done(null, user);
+    })
+    .catch((err) => {
+      console.log("DB lookup of user failed with err=" + err);
+      done(err, null);
+    });
 });
 
 // * route "/" to "/today"
