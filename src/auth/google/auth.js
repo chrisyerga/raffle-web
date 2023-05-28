@@ -67,7 +67,7 @@ router.get(
 
 router.get("/auth/google/success", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/success".green);
-  console.log("   *** USER=" + JSON.stringify(req.user));
+  console.log("   *** USER=" + JSON.stringify(request.user));
   response.send("SUCCESS auth");
   //  return next();
 });
