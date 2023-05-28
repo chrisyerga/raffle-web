@@ -46,6 +46,39 @@ and a commitment to long-term sobriety and confidentiality." />
       align-self: center;
     }
 
+    #formz {
+      display: grid;
+      grid-template:
+        "name  name"
+        "email phone"
+        "role  org";
+      grid-gap: 1rem;
+    }
+
+    @media (min-width: 900px) {
+      #form {
+        display: grid;
+        grid-template:
+          "name name"
+          "email phone"
+          "role org";
+        grid-gap: 1rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      #form {
+        display: grid;
+        grid-template:
+          "name"
+          "email"
+          "phone"
+          "role"
+          "org";
+        grid-gap: 1rem;
+      }
+    }
+
     .form-group {
       margin-bottom: 20px;
     }
@@ -101,14 +134,14 @@ and a commitment to long-term sobriety and confidentiality." />
     <div class="container bg-mint">
       <h1 style="padding-bottom: 24px">Raffle Entry Form</h1>
       <form action="register" id="form" method="post">
-        <div class="form-group">
-          <label for="name">Name:</label>
+        <div class="form-group" style="grid-area: name">
+          <label for="name">Name (Required):</label>
           <input type="text" id="name" name="name" required />
         </div>
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email">Email (Required):</label>
           <input type="email" id="email" name="email" required />
-          <div id='email-error' class="error-text">That email has already registered for the raffle</div>
+          <div id='email-error' class="error-text">That email has already registered</div>
         </div>
         <div class="form-group">
           <label for="phone">Phone:</label>
