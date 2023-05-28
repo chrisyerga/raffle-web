@@ -160,30 +160,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const requireAuthenticatedUser = (req, res, next) => {
-  //* For local development, OAUTH doesn't work so just allow it
-  if (process.env.FAKE_GOOGLE_AUTH) {
-    console.log("  SKIPPING AUTH CHECK   ".bgRed.black);
-    next();
-  }
-
-  // Otherwise check if we need to have them login. If so, stash away
-  // the requested path for a later redirect
-  if (req.user) {
-    consolr.log("   auth protected and we have user  ".bgGreen.black);
-    next();
-  }
-  req.session.postAuthRedirect = req.path;
-  console.log("   need auth - redirect to " + req.session.postAuthRedirect);
-
-  //! I think this does what we want
-  response.redirect("/auth/google");
-  // response.render("login-required", {
-  //   title: "Please Login",
-  //   page: request.path,
-  // });
-};
-
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {
