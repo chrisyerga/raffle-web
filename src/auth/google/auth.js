@@ -52,8 +52,15 @@ router.get(
 
 router.get(
   "/auth/google/redirect",
-  passport.authenticate("google", { failureRedirect: "/authfail" }),
-  function (req, res) {
+  passport.authenticate("google", {
+    successRedirect: "/auth/google/success",
+    failureRedirect: "/auth/google/failure",
+  }),
+  function (req, res, xxx) {
+    console.log("[AUTH] inside passport.authenticate callback");
+    console.log("   REQ (really??!)=" + JSON.stringify(req));
+    console.log("   RES (really??!)=" + JSON.stringify(res));
+    console.log("   XXX (maybe??!)=" + JSON.stringify(xxx));
     res.redirect("/profile");
   }
 );
