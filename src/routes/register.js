@@ -70,6 +70,7 @@ router.get("/raffle/details/:id", async (request, response, next) => {
   var entrant;
 
   try {
+    console;
     const entrant = await Registrant.findById(request.params.id);
     console.log(`Entrant: ${JSON.stringify(entrant)}`.blue);
     response.render("entry-details", {
@@ -81,6 +82,7 @@ router.get("/raffle/details/:id", async (request, response, next) => {
     });
   } catch (err) {
     console.log(err);
+    console.log("While attempting to get details on ID=" + request.params.id);
   }
 });
 

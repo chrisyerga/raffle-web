@@ -14,6 +14,10 @@ const express = require("express");
 const winston = require("winston");
 const expressWinston = require("express-winston");
 
+// * MongoDB schema/models
+const User = require("./src/model/user");
+const Registrant = require("./src/model/registrant");
+
 // * Globals
 const app = express();
 const server = http.createServer(app);
@@ -90,16 +94,16 @@ app.use(
     resave: false,
     saveUninitialized: true,
     secret: process.env.SESSION_COOKIE_SECRET,
+    //! Defaults to in-memory session storage which leaks and isn't persistent
+    //! Use either Mongo or Redis
   })
 );
 
-// Google OAUTH
-const User = require("./src/model/user");
+// Google OAUTH support
 const passport = require("passport");
 app.use(passport.initialize());
 app.use(passport.session());
 var GoogleStrategy = require("passport-google-oauth2").Strategy;
-console.log("[AUTH] Creatning passport Google strategy");
 passport.use(
   new GoogleStrategy(
     {
@@ -109,26 +113,18 @@ passport.use(
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
-      console.log("[AUTH] called strategy callback in app.js");
-      console.log("GoogleID = " + profile.id);
-      console.log("About to Mongo the shit out of this user");
       const existing = await User.findOne({ googleId: profile.id });
-      console.log("Existing user? = " + existing);
-      console.log("   Google profile=" + JSON.stringify(profile));
-      console.log("   Google access token=" + JSON.stringify(accessToken));
-      console.log("   Google refresh token=" + JSON.stringify(refreshToken));
 
       if (existing) {
-        console.log("UZER=" + JSON.stringify(existing));
-        //return done(null, profile);
         return done(null, existing);
       } else {
-        console.log("No user. Gotta create one");
-        const newUser = new User({ googleId: profile.id });
-        console.log("Trying to save...");
+        const newUser = new User({
+          googleId: profile.id,
+          name: profile.given_name,
+          email: profile.email,
+          photo: profile.picture,
+        });
         await newUser.save();
-        console.log("Back from save...");
-        //return done(null, profile);
         return done(null, newUser);
       }
     }
@@ -136,16 +132,13 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log("### serializeUser called!!!!!!!!!!!!!");
   console.log(JSON.stringify(user));
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log("### deserializeUser called!!!!!!!!!!!!!");
   User.findById(id)
     .then((user) => {
-      console.log("Found user in DB: " + JSON.stringify(user));
       done(null, user);
     })
     .catch((err) => {
@@ -156,30 +149,37 @@ passport.deserializeUser((id, done) => {
 
 // Debug dump user on every request
 app.use((req, res, next) => {
-  console.log("  > request path=" + req.path);
-  console.log("  > req.user=" + req.user);
-  console.log("  > this.passport=" + req.passport);
-  console.log("  > this._passport=" + req._passport);
-  if (req.session.passport) {
-    console.log(
-      " ###### req.session.passport.user=" +
-        JSON.stringify(req.session.passport.user)
-    );
-  }
-  console.log(" isAuthenticated edxists? " + req.isAuthenticated);
-  console.log(" req auth state=" + req.isAuthenticated());
-  //  console.log("  > authed user=" + JSON.stringify(req.session.passport.user));
   if (req.isAuthenticated) {
     console.log(
       req.isAuthenticated()
-        ? "   AUTHENTICATED USER   ".bgBlue
-        : "   NOT AUTHED USER   ".bgMagenta
+        ? "   AUTHENTICATED   ".bgBlue.black
+        : "   NOT AUTHED   ".bgMagenta.black
     );
   }
-  console.log(" -> full session=" + JSON.stringify(req.session));
 
   next();
 });
+
+const requireAuthenticatedUser = (req, res, next) => {
+  //* For local development, OAUTH doesn't work so just allow it
+  if (process.env.FAKE_GOOGLE_AUTH) {
+    next();
+  }
+
+  // Otherwise check if we need to have them login. If so, stash away
+  // the requested path for a later redirect
+  if (req.user) {
+    next();
+  }
+  req.session.postAuthRedirect = req.path;
+
+  //! I think this does what we want
+  response.redirect("/auth/google");
+  // response.render("login-required", {
+  //   title: "Please Login",
+  //   page: request.path,
+  // });
+};
 
 // * route "/" to "/today"
 app.use((req, res, next) => {
@@ -223,15 +223,9 @@ app.all("*", (req, res) => {
   //res.status(404).send("<h1>404! Page not found</h1>");
 });
 
-const checkUserLoggedIn = (req, res, next) => {
-  req.user ? next() : res.sendStatus(401);
-};
-
 // * Set up test data if needed
 if (process.env.NODE_ENV === "development") {
   console.log("\n\n   Populating DB with sample data\n   ".bgGreen.black);
-
-  const Registrant = require("./src/model/registrant");
   Registrant.populateSampleData();
 }
 
