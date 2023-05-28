@@ -12,6 +12,7 @@ logs/
 
 # local playground/test files
 local/
+result.gif
 
 # modules, binaries, etc
 node_modules/
