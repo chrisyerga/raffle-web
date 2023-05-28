@@ -14,12 +14,14 @@ const requireAuthenticatedUser = (req, res, next) => {
   // Otherwise check if we need to have them login. If so, stash away
   // the requested path for a later redirect
   if (req.user) {
+	  console.log("   auth barrier -- have user already!   ".bgGreen.black);
     next();
   }
   req.session.postAuthRedirect = req.path;
+console.log("   jump to auth. will redirect to: " + req.session.postAuthRedirect);
 
   //! I think this does what we want
-  response.redirect("/auth/google");
+  res.redirect("/auth/google");
   // response.render("login-required", {
   //   title: "Please Login",
   //   page: request.path,

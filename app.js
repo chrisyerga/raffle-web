@@ -170,9 +170,11 @@ const requireAuthenticatedUser = (req, res, next) => {
   // Otherwise check if we need to have them login. If so, stash away
   // the requested path for a later redirect
   if (req.user) {
+consolr.log("   auth protected and we have user  ".bgGreen.black);
     next();
   }
   req.session.postAuthRedirect = req.path;
+console.log("   need auth - redirect to " + req.session.postAuthRedirect);
 
   //! I think this does what we want
   response.redirect("/auth/google");
