@@ -93,22 +93,6 @@ app.use(
   })
 );
 
-// Debug dump user on every request
-app.use((req, res, next) => {
-  console.log("  > request path=" + req.path);
-  console.log("  > req.user=" + req.user);
-  console.log("  > this.passport=" + req.passport);
-  console.log("  > this._passport=" + req._passport);
-      if(req.session.passport) {
-	console.log(" ###### req.session.passport.user=" + JSON.stringify(req.session.passport.user));
-      }
-	console.log(" req auth state=" + req.isAuthenticated());
-//  console.log("  > authed user=" + JSON.stringify(req.session.passport.user));
-  console.log(" -> full session=" + JSON.stringify(req.session));
-
-  next();
-});
-
 // Google OAUTH
 const User = require("./src/model/user");
 const auth = require("./src/auth/google/auth");
@@ -138,7 +122,7 @@ passport.use(
 
       if (existing) {
         console.log("UZER=" + JSON.stringify(existing));
-	      //return done(null, profile);
+        //return done(null, profile);
         return done(null, existing);
       } else {
         console.log("No user. Gotta create one");
@@ -146,7 +130,7 @@ passport.use(
         console.log("Trying to save...");
         await newUser.save();
         console.log("Back from save...");
-	      //return done(null, profile);
+        //return done(null, profile);
         return done(null, newUser);
       }
     }
@@ -170,6 +154,25 @@ passport.deserializeUser((id, done) => {
       console.log("DB lookup of user failed with err=" + err);
       done(err, null);
     });
+});
+
+// Debug dump user on every request
+app.use((req, res, next) => {
+  console.log("  > request path=" + req.path);
+  console.log("  > req.user=" + req.user);
+  console.log("  > this.passport=" + req.passport);
+  console.log("  > this._passport=" + req._passport);
+  if (req.session.passport) {
+    console.log(
+      " ###### req.session.passport.user=" +
+        JSON.stringify(req.session.passport.user)
+    );
+  }
+  console.log(" req auth state=" + req.isAuthenticated());
+  //  console.log("  > authed user=" + JSON.stringify(req.session.passport.user));
+  console.log(" -> full session=" + JSON.stringify(req.session));
+
+  next();
 });
 
 // * route "/" to "/today"
@@ -215,7 +218,6 @@ app.all("*", (req, res) => {
 const checkUserLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);
 };
-
 
 // * Set up test data if needed
 if (process.env.NODE_ENV === "development") {
