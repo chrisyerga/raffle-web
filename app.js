@@ -94,6 +94,7 @@ app.use(
 );
 
 // Google OAUTH
+User = require("./src/model/user");
 const auth = require("./src/auth/google/auth");
 app.use(auth);
 const passport = require("passport");
@@ -113,7 +114,7 @@ passport.use(
       console.log("[AUTH] called strategy callback in app.js");
       console.log("GoogleID = " + profile.id);
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        console.log("User.findorcreate back - " + err + user);
+        console.log("User.findorcreate back - " + user + "(ERR=" + err);
         return done(err, user);
       });
     }
