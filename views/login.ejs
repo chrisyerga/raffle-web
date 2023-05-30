@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality." />
   <meta name="description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
 and a commitment to long-term sobriety and confidentiality." />
-  <link rel="stylesheet" type="text/css" href="../css/site-styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/site-styles.css" />
   <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
   <link rel="shortcut icon" type="image/x-icon" href="../images/diffs-favicon-blue.png" />
 
@@ -71,9 +71,11 @@ and a commitment to long-term sobriety and confidentiality." />
       border-radius: 4px;
       border: none;
       cursor: pointer;
+      max-width: 40%;
+      padding: auto;
     }
 
-    button:hover {
+    .form-group button:hover {
       background-color: #45a049;
     }
 
@@ -179,83 +181,21 @@ and a commitment to long-term sobriety and confidentiality." />
       text-align: center;
       padding: 20px;
       margin: 0 auto;
-    }
 
-    .header {
-      background-color: #f5f5f5;
-      padding: 10px;
-      text-align: right;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      max-width: 50%;
-      padding: auto;
-      float: right;
-    }
-
-    .user-profile img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .user-profile .username {
-      font-weight: 300;
-    }
-
-    .logout-button {
-      padding: 5px 10px;
-      margin: 10px;
-      background-color: #333;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
   <%- include('header', {user: 'Chris Yerga'}) %>
-  <div class="user-profile">
-    <img src="<%=authedUser.photo%>" alt="User Photo">
-    <span class="username"><%=authedUser.name%></span>
-    <button class="logout-button">Logout</button>
-  </div>
-
   <div class="bg-mint" id="wrapper">
     <div class="container bg-mint">
-      <h1 style="padding-bottom: 8px">Raffle Admin Console</h1>
+      <h1 style="padding-bottom: 8px">Login with Google</h1>
     </div>
-
     <div class="table-header">
-
-      <div class="table-controls">
-        <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
-        <div class="form-group">
-          <label for="search">Filter</label>
-          <input type="text" />
-        </div>
-      </div>
-
+      <a href='/raffle/admin'><button>Login</button></a>
     </div>
 
-    <div class="user-list">
-      <% entries.forEach(function(user, index){ %>
-      <a href="details/<%=user.id%>">
-        <div class=" user-card" db-index="<%=index%>">
-          <div class="index-number"><%= index+1 %></div>
-          <div class="user-details">
-            <h3><%= user.name %></h3>
-            <p><%= user.email %></p>
-          </div>
-        </div>
-      </a>
-      <% }); %>
-    </div>
     <div style="padding-bottom: 500px"></div>
   </div>
 </body>

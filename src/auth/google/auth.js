@@ -30,6 +30,7 @@ router.get("/auth/google/success", async (request, response, next) => {
   console.log("[AUTH] routed to /auth/google/success".green);
   console.log("   *** USER=" + JSON.stringify(request.user));
   response.redirect("/raffle/admin");
+
   //  response.redirect(request.session.postAuthRedirect);
   //  response.send("SUCCESS auth");
   //  return next();
@@ -41,6 +42,20 @@ router.get("/auth/google/failure", async (request, response, next) => {
     "Login failed. This page is only available to employees of The Differents"
   );
   //  return next();
+});
+
+router.get("/auth/google/logout", async (request, response, next) => {
+  console.log("[AUTH] routed to /auth/google/logout".red);
+  request.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    response.render("login", {
+      title: "Raffle Admin Console",
+      page: request.path,
+      authedUser: request.user,
+    });
+  });
 });
 
 module.exports = router;

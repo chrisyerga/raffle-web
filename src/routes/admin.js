@@ -15,6 +15,7 @@ router.get(
       title: "Raffle Admin Console",
       entries: entries,
       page: request.path,
+      authedUser: request.user,
     });
   }
 );

@@ -1,14 +1,18 @@
 const express = require("express");
 const passport = require("passport");
+const User = require("../../model/user");
 require("dotenv").config();
 
 const router = express.Router();
 
 module.exports = {
-  requireAuthenticatedUser: (req, res, next) => {
+  requireAuthenticatedUser: async (req, res, next) => {
     //* For local development, OAUTH doesn't work so just allow it
     if (process.env.FAKE_GOOGLE_AUTH && process.env.FAKE_GOOGLE_AUTH.length) {
       console.log("  SKIPPING AUTH CHECK   ".bgRed.black);
+
+      //! Just use my profile for local debugging
+      req.user = await User.findOne({ googleId: "104874898905563683536" });
       return next();
     }
 
