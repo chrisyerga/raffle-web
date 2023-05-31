@@ -1,6 +1,7 @@
 const express = require("express");
 const Chore = require("../model/registrant");
 const Registrant = require("../model/registrant");
+const authUtils = require("../auth/google/authutils");
 
 const router = express.Router();
 
@@ -53,17 +54,21 @@ router.get("/raffle", async (request, response, next) => {
   response.redirect("/raffle/register");
 });
 
-router.get("/raffle/drawing", async (request, response, next) => {
-  // Retrieve all the raffle entrants. Don't cache it at all
-  const entrants = await Registrant.find();
-  const names = entrants.map((entry) => entry.name);
+router.get(
+  "/raffle/drawing",
+  authUtils.requireAuthenticatedUser,
+  async (request, response, next) => {
+    // Retrieve all the raffle entrants. Don't cache it at all
+    const entrants = await Registrant.find();
+    const names = entrants.map((entry) => entry.name);
 
-  response.render("drawing", {
-    title: "Drawing Results",
-    names: names,
-    page: request.path,
-  });
-});
+    response.render("drawing", {
+      title: "Drawing Results",
+      names: names,
+      page: request.path,
+    });
+  }
+);
 
 router.get("/raffle/details/:id", async (request, response, next) => {
   // Look up the requested id
