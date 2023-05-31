@@ -79,6 +79,12 @@ and a commitment to long-term sobriety and confidentiality." />
       }
     }
 
+    @media (max-width: 900px) {
+      .hide-on-mobile {
+        display: none;
+      }
+    }
+
     .form-group {
       margin-bottom: 20px;
     }
@@ -132,7 +138,13 @@ and a commitment to long-term sobriety and confidentiality." />
   </script>
   <div class="bg-mint">
     <div class="container bg-mint">
+      <div style="display: inline-block; margin-bottom: 35px">
+        <img src="../../images/WCS-Logo-Horiz_4C-1.png" width="32%" />
+        <div style="width: 30%; display:inline-block"></div>
+        <img src="../../images/differents-logo-whiteprimary_black-large.png" width="32%" />
+      </div>
       <h1 style="padding-bottom: 24px">Raffle Entry Form</h1>
+      <p style="padding-bottom: 38px">Enter your name and contact information below to be entered into our raffle. Alternatively, ask at our booth in the exhibitor area.</p>
       <form action="register" id="form" method="post">
         <div class="form-group" style="grid-area: name">
           <label for="name">Name (Required):</label>
