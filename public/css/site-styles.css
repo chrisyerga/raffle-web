@@ -145,3 +145,9 @@ section.hero {
     font-size: 32px;
   }
 }
+
+@media (max-width: 900px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}

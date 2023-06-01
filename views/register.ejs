@@ -49,7 +49,7 @@ and a commitment to long-term sobriety and confidentiality." />
     #formz {
       display: grid;
       grid-template:
-        "name  name"
+        "firstName  lastName"
         "email phone"
         "role  org";
       grid-gap: 1rem;
@@ -59,7 +59,7 @@ and a commitment to long-term sobriety and confidentiality." />
       #form {
         display: grid;
         grid-template:
-          "name name"
+          "firstName lastName"
           "email phone"
           "role org";
         grid-gap: 1rem;
@@ -70,7 +70,8 @@ and a commitment to long-term sobriety and confidentiality." />
       #form {
         display: grid;
         grid-template:
-          "name"
+          "firstName"
+          "lastName"
           "email"
           "phone"
           "role"
@@ -124,6 +125,24 @@ and a commitment to long-term sobriety and confidentiality." />
       color: #c00;
       display: none;
     }
+
+    .single-social-icon-wrapper {
+      background-color: #4a6270;
+      display: inline-block;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 20px;
+      vertical-align: middle;
+      margin-left: 25px;
+      max-width: 35px;
+    }
+
+    .bonus-entries {
+      font-size: 18;
+      color: #000;
+      padding: 6px;
+      display: none;
+    }
   </style>
 </head>
 
@@ -136,19 +155,27 @@ and a commitment to long-term sobriety and confidentiality." />
       submitButton.style.backgroundColor = "#999";
     }
   </script>
+
   <div class="bg-mint">
     <div class="container bg-mint">
       <div style="display: inline-block; margin-bottom: 35px">
         <img src="../../images/WCS-Logo-Horiz_4C-1.png" width="32%" />
         <div style="width: 30%; display:inline-block"></div>
-        <img src="../../images/differents-logo-whiteprimary_black-large.png" width="32%" />
+        <a href="https://the-differents.com">
+          <img src="../../images/differents-logo-whiteprimary_black-large.png" width="32%" />
+        </a>
       </div>
       <h1 style="padding-bottom: 24px">Raffle Entry Form</h1>
-      <p style="padding-bottom: 38px">Enter your name and contact information below to be entered into our raffle. Alternatively, ask at our booth in the exhibitor area.</p>
+      <p style="padding-bottom: 38px">Enter your name and contact information below to be entered into our raffle. Alternatively, ask at our booth #424 in the exhibitor area.</p>
+      <p style="padding-bottom: 38px">If you already entered, you can check the <a href="./drawing">results of completed drawings.</a></p>
       <form action="register" id="form" method="post">
-        <div class="form-group" style="grid-area: name">
-          <label for="name">Name (Required):</label>
-          <input type="text" id="name" name="name" required />
+        <div class="form-group" style="grid-area: firstName">
+          <label for="firstName">First Name (Required):</label>
+          <input type="text" id="firstName" name="firstName" required />
+        </div>
+        <div class="form-group" style="grid-area: lastName">
+          <label for="lastName">Last Name (Required):</label>
+          <input type="text" id="lastName" name="lastName" required />
         </div>
         <div class="form-group">
           <label for="email">Email (Required):</label>
@@ -167,6 +194,60 @@ and a commitment to long-term sobriety and confidentiality." />
           <label for="company">Company:</label>
           <input type="text" id="company" name="company" />
         </div>
+
+        <p>Get bonus entries for following our social accounts. Click each social icon to view our page and follow from there.</p>
+
+        <div class="single-social-icon-wrapper">
+          <a href="http://facebook.com/therealdifferents" aria-label="Facebook" rel="noopener">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="enable-background:new 0 0 62.6 121.1" height="35px" width="35px" viewBox="0 0 62.6 121.1">
+              <path d="M62.6 19.9V.2S42.4 0 41.1 0C32 0 18.9 10.4 18.9 22.1v21.1H0v22.4h18.6v55.5h22V65.3h19.5l2.5-21.9H40.9V27.3c0-3.9 2.9-7.6 7.3-7.6 2.9.1 14.4.2 14.4.2z" style="fill:#fff"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="single-social-icon-wrapper">
+          <a href="http://twitter.com/realdifferents" aria-label="Twitter" rel="noopener">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="enable-background:new 0 0 120.9 96.9" height="35px" width="35px" viewBox="0 0 120.9 96.9">
+              <path d="M101 7.4S94.6-.3 83.5.1c-13.2.4-25.4 8.5-24 29.2 0 0-19.9 6.1-50.8-23.3 0 0-9.9 16.2 7.6 31.5 0 0-4.9 1.4-11.5-2.3 0 0-3.5 13.7 19.1 24.1 0 0-7.6 2.2-11.1 0 0 0 2 14.6 22.3 18 0 0-10.4 10.4-35.2 10.1 0 0 51.4 26.3 87-7.5 25.4-24.1 21.9-56.3 21.9-56.3s7.5-2.3 12-10.4c0 0-8.5 2.7-13.4 2.2 0 0 9.4-5.8 10.1-12.8.1-.2-7.9 5.5-16.5 4.8z" style="fill:#fff"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="single-social-icon-wrapper">
+          <a href="http://instagram.com/therealdifferents" aria-label="Instagram" rel="noopener">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="Layer_1" x="0" y="0" style="enable-background:new 0 0 121.1 121.1" version="1.1" height="35px" width="35px" viewBox="0 0 121.1 121.1">
+              <style>
+                .st0 {
+                  fill: #fff
+                }
+              </style>
+              <path d="M83.7 121.1H37.4C16.8 121.1 0 104.3 0 83.7V37.4C0 16.8 16.8 0 37.4 0h46.3c20.6 0 37.4 16.8 37.4 37.4v46.3c0 20.6-16.8 37.4-37.4 37.4zM37.4 13.5c-13.2 0-23.9 10.7-23.9 23.9v46.3c0 13.2 10.7 23.9 23.9 23.9h46.3c13.2 0 23.9-10.7 23.9-23.9V37.4c0-13.2-10.7-23.9-23.9-23.9H37.4z" class="st0"></path>
+              <path d="M60.6 91.5c-17.1 0-31-13.9-31-31s13.9-31 31-31 31 13.9 31 31c-.1 17.1-14 31-31 31zm0-49.7c-10.4 0-18.8 8.4-18.8 18.8s8.4 18.8 18.8 18.8S79.4 71 79.4 60.6s-8.5-18.8-18.8-18.8z" class="st0"></path>
+              <circle cx="93.1" cy="27.8" r="5.2" class="st0"></circle>
+            </svg>
+          </a>
+        </div>
+
+        <div class="single-social-icon-wrapper">
+          <a href="http://linkedin.com/company/therealdifferents" aria-label="Linked In" rel="noopener">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="35px" height="35px" viewBox="0 0 55.2 55.5">
+              <path fill="#fff" fill-rule="evenodd" d="M1.1 18.7h11v36.8h-11V18.7zM6.5 0c3.7 0 6.6 3 6.6 6.6s-3 6.6-6.6 6.6c-3.7 0-6.5-3-6.5-6.6S2.8 0 6.5 0zm12 18.7h10.8v5.1c2.3-3.4 6.1-5.5 10.4-5.5h3c6.9 0 12.4 5.7 12.4 12.4v24.7H44.4V35.6c-.1-4.2-3-7.4-7.2-7.4s-7.7 3.2-7.8 7.4v19.8H18.5V18.7z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+        <br />
+        <div style="padding-top: 20px"></div>
+        <label for="followSocials">I follow your social accounts</label>
+        <input name="followSocials" onclick="calculateBonus()" type="checkbox" id="followSocials" />
+        <div style="padding-top: 30px"></div>
+        <div id="bonus-entries" class="bonus-entries">
+          <p id="bonus-entries">Bonus entry granted</p>
+        </div>
+        <div style="padding-top: 50px"></div>
         <div class="form-group">
           <button type="submit" id="submit-button" onclick="submitClicked()">
             Enter Raffle
@@ -199,6 +280,13 @@ and a commitment to long-term sobriety and confidentiality." />
           document.getElementById('submit-button').style.backgroundColor = '#555';
         }
       });
+    }
+
+    function calculateBonus() {
+      document.getElementById('bonus-entries').style.display = "none"
+      if (document.getElementById('followSocials').checked) {
+        document.getElementById('bonus-entries').style.display = "inline-block"
+      }
     }
   </script>
 </body>

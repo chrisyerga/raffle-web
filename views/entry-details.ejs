@@ -322,6 +322,7 @@ and a commitment to long-term sobriety and confidentiality." />
         <p><%= entrant.role %></p>
         <p><%= entrant.email %></p>
         <p><%= entrant.phone %></p>
+        <p><b><%=entrant.entryCount%></b> Raffle Entries</p>
         <div style="padding: 15px"></div>
 
 
@@ -380,7 +381,8 @@ and a commitment to long-term sobriety and confidentiality." />
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer Ezz7cpmY62FxYfu7bgwC9k32xbyt8Yl13cui4NefjZM='
+          //          Authorization: 'Bearer zEzz7cpmY62FxYfu7bgwC9k32xbyt8Yl13cui4NefjZM='
+          Authorization: 'Bearer <%=apikey%>'
         }
       };
 
@@ -390,7 +392,11 @@ and a commitment to long-term sobriety and confidentiality." />
           console.log(json);
           applyCompanyBranding(json);
         })
-        .catch(err => console.error('error:' + err));
+        .catch(err => {
+          console.error('error:' + err)
+          document.getElementById('brand-description').innerHTML =
+            "Failed to look up company details. Might have run out of free-tier quota for BrandFetch API. <b>Chris can fix this</b> (" + err + ")";
+        });
     }
 
     function applyCompanyBranding(brand) {

@@ -111,7 +111,7 @@ and a commitment to long-term sobriety and confidentiality." />
 
     .user-list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       grid-gap: 10px;
       max-width: 70%;
       margin: 0 auto;
@@ -142,11 +142,18 @@ and a commitment to long-term sobriety and confidentiality." />
 
     .user-details {
       flex-grow: 1;
+      vertical-align: middle;
     }
 
-    .user-details h3,
+    .user-details h3 {
+      margin: 0;
+      padding-left: 20px;
+    }
+
     .user-details p {
       margin: 0;
+      font-size: 14px;
+      padding-left: 20px;
     }
 
     .user-card p {
@@ -226,65 +233,43 @@ and a commitment to long-term sobriety and confidentiality." />
 
 <body>
   <%- include('header', {user: 'Chris Yerga'}) %>
-  <div class="user-profile">
-    <img src="<%=authedUser.photo%>" alt="User Photo">
-    <span class="username"><%=authedUser.name%></span>
-    <button class="logout-button">Logout</button>
-  </div>
 
   <div class="bg-mint" id="wrapper">
     <div class="container bg-mint">
-      <h1 style="padding-bottom: 8px">Raffle Admin Console</h1>
+      <h1 style="padding-bottom: 8px">Raffle Results</h1>
     </div>
 
     <div class="table-header">
 
       <div style="max-width: 60%; margin: auto;" class="table-controls">
-        <!--                <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
-    <div class="form-group" style="display: inline-block">
-          <label for="search" style="display: inline-block">Search</label>
-          <input type="text" style="display: inline-block" />
-          
-        </div>
-        -->
-
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            Export Data (Entries:<%= entries.length %>)
-          </button>
-        </div>
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            <a href="./admin/drawing" style="text-decoration: none; color: #fff">
-              Start New Raffle Drawing</a>
-          </button>
-        </div>
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            <a href="./drawing" style="text-decoration: none; color: #fff">
-              Show Previous Drawings</a>
-          </button>
-        </div>
-
       </div>
 
     </div>
 
     <div class="user-list">
-      <% entries.forEach(function(user, index){ %>
-      <a href="details/<%=user.id%>">
-        <div class=" user-card" db-index="<%=index%>">
+      <% drawings.forEach(function(drawing, index){ %>
+      <a href="drawing/<%=drawing.id%>">
+        <div class="user-card" db-index="<%=index%>">
           <div class="index-number"><%= index+1 %></div>
           <div class="user-details">
-            <h3><%= user.name %></h3>
-            <p><%= user.email %></p>
-            <% if (user.entryCount) {%>
-            <p><b><%=user.entryCount%></b> Raffle Entries</p>
-            <% }%>
+            <div style="display: inline-block; vertical-align: middle">
+              <img style="display: inline-block;" src="<%=drawing.itemImage%>" height="64" />
+            </div>
+            <div style="display: inline-block; vertical-align: middle;">
+              <h3><%= drawing.itemName %></h3>
+              <p style="display: inline-block"><%=drawing.date%></p>
+              <% if(drawing.winner && drawing.winner.length) {%>
+              <p style="display: inline-block">Winner: <%=drawing.winner%></p>
+              <% } %>
+            </div>
           </div>
         </div>
       </a>
       <% }); %>
+
+      <% if (drawings.length === 0) { %>
+      <p style="padding-top: 35px">No drawings have happened yet. You may stop by our booth #424 to see the schedule.</p>
+      <% } %>
     </div>
     <div style="padding-bottom: 500px"></div>
   </div>

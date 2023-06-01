@@ -33,6 +33,18 @@ const registrantSchema = new Schema({
     required: false,
     unique: false,
   },
+
+  winner: {
+    type: String,
+    required: false,
+    unique: false,
+  },
+
+  entryCount: {
+    type: Number,
+    required: false,
+    unique: false,
+  },
 });
 
 //* In addition to defining the data format, we can also add methods to

@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality." />
   <meta name="description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
 and a commitment to long-term sobriety and confidentiality." />
-  <link rel="stylesheet" type="text/css" href="../css/site-styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/site-styles.css" />
   <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
   <link rel="shortcut icon" type="image/x-icon" href="../images/diffs-favicon-blue.png" />
 
@@ -41,7 +41,7 @@ and a commitment to long-term sobriety and confidentiality." />
     }
 
     .container {
-      max-width: 400px;
+      max-width: 70%;
       margin: 0 auto;
       align-self: center;
     }
@@ -231,63 +231,66 @@ and a commitment to long-term sobriety and confidentiality." />
     <span class="username"><%=authedUser.name%></span>
     <button class="logout-button">Logout</button>
   </div>
-
-  <div class="bg-mint" id="wrapper">
+  <div class="bg-mint">
     <div class="container bg-mint">
-      <h1 style="padding-bottom: 8px">Raffle Admin Console</h1>
-    </div>
-
-    <div class="table-header">
-
-      <div style="max-width: 60%; margin: auto;" class="table-controls">
-        <!--                <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
-    <div class="form-group" style="display: inline-block">
-          <label for="search" style="display: inline-block">Search</label>
-          <input type="text" style="display: inline-block" />
-          
-        </div>
-        -->
-
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            Export Data (Entries:<%= entries.length %>)
-          </button>
-        </div>
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            <a href="./admin/drawing" style="text-decoration: none; color: #fff">
-              Start New Raffle Drawing</a>
-          </button>
-        </div>
-        <div class="form-group" style="display: inline-block; padding: 12px">
-          <button id="export-button" onclick="submitClicked()">
-            <a href="./drawing" style="text-decoration: none; color: #fff">
-              Show Previous Drawings</a>
-          </button>
-        </div>
-
+      <div style="display: inline-block; margin-bottom: 35px">
+        <img src="../../images/WCS-Logo-Horiz_4C-1.png" width="32%" />
+        <div style="width: 30%; display:inline-block"></div>
+        <a href="https://the-differents.com">
+          <img src="../../images/differents-logo-whiteprimary_black-large.png" width="32%" />
+        </a>
       </div>
-
-    </div>
-
-    <div class="user-list">
-      <% entries.forEach(function(user, index){ %>
-      <a href="details/<%=user.id%>">
-        <div class=" user-card" db-index="<%=index%>">
-          <div class="index-number"><%= index+1 %></div>
-          <div class="user-details">
-            <h3><%= user.name %></h3>
-            <p><%= user.email %></p>
-            <% if (user.entryCount) {%>
-            <p><b><%=user.entryCount%></b> Raffle Entries</p>
-            <% }%>
-          </div>
+      <h1 style="padding-bottom: 24px">Create a new raffle drawing</h1>
+      <p style="padding-bottom: 38px">Enter the info for the next drawing. You will be able to start the drawing after you submit this form. It will then appear on the list of <a href="../drawing">completed drawings</a> for users to see.</p>
+      <p style="padding-bottom: 38px">Click the buttons below to pre-fill the form or enter your own values. You can edit these afterwards if needed.<a href="../drawing">completed drawings</a> for users to see.</p>
+      <button onClick="prefillPen()" style="display: inline-block">TIffany Pen</button>
+      <button onClick="prefillAirpods()" style="display: inline-block">AirPods Pro</button>
+      <button onClick="prefillCEU()" style="display: inline-block">One Year CEU</button>
+      <div style="margin: 25px"></div>
+      <form action="./drawing" id="form" method="post">
+        <div class="form-group" style="grid-area: name">
+          <label for="name">Raffle Name (Required):</label>
+          <input type="text" id="name" name="name" placeholder="ie: Tiffany Pen" required />
         </div>
-      </a>
-      <% }); %>
+        <div class="form-group">
+          <label style="display: inline-block" for="image">Image URL:</label>
+          <input type="text" id="image" name="image" />
+        </div>
+        <div class="form-group">
+          <label for="description">Item Description:</label>
+          <input type="description" id="description" name="description" required />
+        </div>
+        <div class="form-group">
+          <button type="submit" id="submit-button" onclick="submitClicked()">
+            Create Raffle
+          </button>
+        </div>
+
+      </form>
     </div>
+
     <div style="padding-bottom: 500px"></div>
   </div>
+
+  <script>
+    function prefillPen() {
+      document.getElementById('name').value = "Tiffany Pen";
+      document.getElementById('image').value = "http://i.pinimg.com/736x/3e/02/a4/3e02a4e82e45552a9e0cdb24a9209741.jpg";
+      document.getElementById('description').value = "An elegant sterling silver pen suitable for all manner of written musings";
+    }
+
+    function prefillAirpods() {
+      document.getElementById('name').value = "Apple Airpods Pro";
+      document.getElementById('image').value = "https://m.media-amazon.com/images/I/71zny7BTRlL._AC_SL1500_.jpg";
+      document.getElementById('description').value = "Shut out the world with Apple's top-of-the-line Bluetooth earphones";
+    }
+
+    function prefillCEU() {
+      document.getElementById('name').value = "One Year of CEU";
+      document.getElementById('image').value = "https://pryormediacdn.blob.core.windows.net/wordpress/2017/06/ceu-credit-logo.jpg";
+      document.getElementById('description').value = "Up to $500 credit towards Continuing Education Units furthering your professional education";
+    }
+  </script>
 </body>
 
 </html>

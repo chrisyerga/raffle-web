@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care and a commitment to long-term sobriety and confidentiality." />
   <meta name="description" content="Luxury drug and alcohol rehab treatment in Reno NV providing comfort, care 
 and a commitment to long-term sobriety and confidentiality." />
-  <link rel="stylesheet" type="text/css" href="../css/site-styles.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/site-styles.css" />
   <link rel="stylesheet" href="https://use.typekit.net/uqo4llz.css" />
   <link rel="shortcut icon" type="image/x-icon" href="../images/diffs-favicon-blue.png" />
 
@@ -83,6 +83,7 @@ and a commitment to long-term sobriety and confidentiality." />
 
     .container p {
       padding: 10px;
+      text-align: center;
     }
 
     .drawing-container {
@@ -97,12 +98,14 @@ and a commitment to long-term sobriety and confidentiality." />
 
     .countdown-container {
       max-width: 500px;
-      height: 212px;
-      line-height: 200px;
+      height: 225px;
+      line-height: 225px;
       border-radius: 10px;
       background-color: #555;
       margin: 0 auto;
       padding: 20px;
+      transition: height 2s;
+      text-align: center;
     }
 
     .countdown-container p {
@@ -125,21 +128,27 @@ and a commitment to long-term sobriety and confidentiality." />
 <body>
   <%- include('header', {user: 'Chris Yerga'}) %>
   <div class="bg-mint" id="emitter">
-    <script src="../javascript/confetti.js"></script>
+    <script src="../../javascript/confetti.js"></script>
     <canvas id="confetti-canvas" width="500" height="800"></canvas>
     <div class="container bg-mint">
       <h1 style="padding-bottom: 24px">Raffle Drawing</h1>
+      <div>
+        <p><%=drawing.itemName%>, <%=drawing.date%></p>
+      </div>
+      <div style="display: block; text-align: center;">
+        <p id="winner" style="font-size:20px; display: none; text-align: center; padding-top: 24px; padding-bottom:18px"><%=drawing.winner%> is the winner.</p>
+      </div>
     </div>
     <div class="drawing-container">
-      <p>Next Drawing at 4:00PM</p>
     </div>
     <div class="countdown-container">
-      <p id="drawing-status">0:15:10</p>
+      <p id="drawing-status"></p>
     </div>
     <div style="padding-bottom: 500px"></div>
   </div>
 </body>
 <script>
+  const drawing = <%-JSON.stringify(drawing)%>;
   const entries = <%- JSON.stringify(names) %>
   var entryIndex = 0;
   var loops = 0;
@@ -164,8 +173,11 @@ and a commitment to long-term sobriety and confidentiality." />
   }
 
   function declareWinner(winner) {
+    status.innerText = winner;
+
     startConfetti();
 
+    document.getElementById('winner').style.display = "block"
     // Animate the winner's name
     animationIterations = 0;
     setTimeout(animateWinner, 30);
@@ -195,7 +207,7 @@ and a commitment to long-term sobriety and confidentiality." />
       interval = 1200;
     } else {
       interval = 0;
-      declareWinner(entries[entryIndex]);
+      declareWinner('<%=drawing.winner%>');
     }
     if (interval)
       setTimeout(updateStatus, interval);
