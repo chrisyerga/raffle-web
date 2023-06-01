@@ -316,6 +316,7 @@ and a commitment to long-term sobriety and confidentiality." />
         <a id="brand-url">
           <p id="brand-site"></p>
         </a>
+        <div id="company-links">(Couldn't determine company social links)</div>
         <div style="padding:15px"></div>
         <h3><%= entrant.name %></h3>
         <p><%= entrant.organization %></p>
@@ -381,8 +382,9 @@ and a commitment to long-term sobriety and confidentiality." />
         method: 'GET',
         headers: {
           accept: 'application/json',
-          //          Authorization: 'Bearer zEzz7cpmY62FxYfu7bgwC9k32xbyt8Yl13cui4NefjZM='
-          Authorization: 'Bearer <%=apikey%>'
+          Referer: "https://thediffs.co",
+          // Authorization: 'Bearer zEzz7cpmY62FxYfu7bgwC9k32xbyt8Yl13cui4NefjZM='
+          Authorization: 'Bearer /Y1MV7G5IhcfK0jEBsmXX6uxkmm+8T/M7B8aFCiOk6Y=',
         }
       };
 
@@ -400,12 +402,24 @@ and a commitment to long-term sobriety and confidentiality." />
     }
 
     function applyCompanyBranding(brand) {
+      console.log("BRAND: " + JSON.stringify(brand));
       document.getElementById('brand-logo').src = getLogo(brand);
       document.getElementById('brand-site').innerText = brand.domain;
       document.getElementById('brand-name').innerText = brand.name;
       document.getElementById('brand-description').innerText = brand.description;
       document.getElementById('brand-url').href = "https://" + brand.domain;
       document.getElementById('company-search').href = "../company/" + encodeURI(brand.name);
+
+      const links = document.getElementById('company-links');
+      var linkText = 'Company Social Links:<br>';
+      console.log("LYNX: " + JSON.stringify(brand.links));
+      brand.links.forEach((link) => {
+        var newLink = `<a href="${link.url}"">${link.name}</a><br>`;
+        linkText = linkText + newLink;
+      });
+
+      if (linkText.length > 30)
+        links.innerHTML = linkText;
     }
     getBrandInfo("<%=entrant.email%>");
   </script>
