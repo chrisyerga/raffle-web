@@ -166,9 +166,15 @@ and a commitment to long-term sobriety and confidentiality." />
       margin-right: 10px;
     }
 
-    .table-header p {
+    .table-header {
       margin: 20px;
+      max-width: 65%;
+      margin: 0 auto;
     }
+
+    .table-controls {}
+
+    .table-controls {}
 
     div.scroll-container {
       background-color: #666;
@@ -231,14 +237,23 @@ and a commitment to long-term sobriety and confidentiality." />
       <h1 style="padding-bottom: 8px">Raffle Admin Console</h1>
     </div>
 
-    <div class="table-header">
+    <div class="table-header" style="xxdisplay: inline-block">
 
-      <div class="table-controls">
-        <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
-        <div class="form-group">
-          <label for="search">Filter</label>
-          <input type="text" />
+      <div style="max-width: 60%; margin: auto;" class="table-controls">
+        <!--                <p style="text-align: center"><%= entries.length %> entries as of <%= new Date().toLocaleTimeString() %></p>
+    <div class="form-group" style="display: inline-block">
+          <label for="search" style="display: inline-block">Search</label>
+          <input type="text" style="display: inline-block" />
+          
         </div>
+        -->
+
+        <div class="form-group">
+          <button id="export-button" onclick="submitClicked()">
+            Export Data (<%= entries.length %> entries)
+          </button>
+        </div>
+
       </div>
 
     </div>
