@@ -109,12 +109,20 @@ and a commitment to long-term sobriety and confidentiality." />
       text-align: center;
     }
 
+
+
     .user-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 10px;
       max-width: 70%;
       margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .user-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     .user-list a {
