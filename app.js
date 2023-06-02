@@ -163,7 +163,7 @@ app.use((req, res, next) => {
 // * route "/" to "/today"
 app.use((req, res, next) => {
   if (req.path === "/") {
-    res.redirect(301, "/today");
+    res.redirect(301, "/raffle");
   } else {
     next();
   }
