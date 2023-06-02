@@ -245,6 +245,7 @@ and a commitment to long-term sobriety and confidentiality." />
       <p style="padding-bottom: 38px">Click the buttons below to pre-fill the form or enter your own values. You can edit these afterwards if needed.<a href="../drawing">completed drawings</a> for users to see.</p>
       <button onClick="prefillPen()" style="display: inline-block">TIffany Pen</button>
       <button onClick="prefillAirpods()" style="display: inline-block">AirPods Pro</button>
+      <button onClick="prefillWhoop()" style="display: inline-block">Whoop</button>
       <button onClick="prefillCEU()" style="display: inline-block">One Year CEU</button>
       <div style="margin: 25px"></div>
       <form action="./drawing" id="form" method="post">
@@ -289,6 +290,12 @@ and a commitment to long-term sobriety and confidentiality." />
       document.getElementById('name').value = "One Year of CEU";
       document.getElementById('image').value = "https://pryormediacdn.blob.core.windows.net/wordpress/2017/06/ceu-credit-logo.jpg";
       document.getElementById('description').value = "Up to $500 credit towards Continuing Education Units furthering your professional education";
+    }
+
+    function prefillWhoop() {
+      document.getElementById('name').value = "Whoop Fitness Tracker";
+      document.getElementById('image').value = "https://m.media-amazon.com/images/I/71CQ6esBqFL._AC_SL1500_.jpg";
+      document.getElementById('description').value = "Track your health with the leading Quantified Self accessory";
     }
   </script>
 </body>
