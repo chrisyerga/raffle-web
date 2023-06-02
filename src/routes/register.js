@@ -170,9 +170,13 @@ router.get("/raffle/details/:id", async (request, response, next) => {
   var entrant;
 
   try {
-    const entrants = await Registrant.find();
-    const names = entrants.map((entry) => entry.name);
-    const drawings = await Drawing.find();
+    if (request.params.id === "undefined") {
+      console.log("Got an undefined detail view".bgBlue.black);
+      console.log(request.originalUrl);
+    }
+    // const entrants = await Registrant.find();
+    // const names = entrants.map((entry) => entry.name);
+    // const drawings = await Drawing.find();
     const entrant = await Registrant.findById(request.params.id);
     console.log(`Entrant: ${JSON.stringify(entrant)}`.blue);
     response.render("entry-details", {
