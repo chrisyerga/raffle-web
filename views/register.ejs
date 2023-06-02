@@ -153,9 +153,24 @@ and a commitment to long-term sobriety and confidentiality." />
   <%- include('header', {user: 'Chris Yerga'}) %>
 
   <script>
-    function submitClicked() {
-      const submitButton = document.getElementById("submit-button");
-      submitButton.style.backgroundColor = "#999";
+    async function submitClicked() {
+      const email = document.getElementById('email').value;
+      const response = await fetch(`email-registered/${email}`);
+      const dbEmail = await response.json();
+
+      if (dbEmail.exists) {
+        // email exists, so display error and disable submit button
+        document.getElementById('email-error').style.display = 'block';
+        document.getElementById('submit-button').setAttribute('disabled', 'disabled');
+        document.getElementById('submit-button').style.backgroundColor = '#aaa';
+      } else {
+        // Valid email. Disable submit button and go
+        document.getElementById('email-error').style.display = 'none';
+        document.getElementById('submit-button').removeAttribute('disabled');
+        document.getElementById('submit-button').style.backgroundColor = '#999';
+      }
+
+      return !dbEmail.exists;
     }
   </script>
 
@@ -255,7 +270,7 @@ and a commitment to long-term sobriety and confidentiality." />
           </div>
           <div style="padding-top: 50px"></div>
           <div class="form-group">
-            <button type="submit" id="submit-button" onclick="submitClicked()">
+            <button type="submit" id="submit-button" onsubmit="return submitClicked()">
               Enter Raffle
             </button>
           </div>

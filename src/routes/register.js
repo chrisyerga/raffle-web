@@ -25,8 +25,12 @@ router.post("/raffle/register", async (request, response, next) => {
     phone: body.phone,
     entryCount: body.followSocials ? 2 : 1,
   });
-  await registration.save();
-  response.redirect("registration-complete");
+  try {
+    await registration.save();
+    response.redirect("registration-complete");
+  } catch (err) {
+    console.log("Error adding new registrant: " + err.message);
+  }
 });
 
 router.post("/raffle/details/:id", async (request, response, next) => {
