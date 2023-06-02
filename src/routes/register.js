@@ -129,6 +129,14 @@ router.get("/raffle/drawing/:id", async (request, response, next) => {
     `Entries=${entries.length}, Bonus=${bonusEntries.length}, Eligible=${eligibleNames.length}`
   );
 
+  // Randomly shuffle the names so all the (bonus) entries aren't batched up
+  for (index = 0; index < eligibleNames.length; ++index) {
+    const randomIndex = Math.floor(Math.random() * eligibleNames.length);
+    const tempName = eligibleNames[index];
+    eligibleNames[index] = eligibleNames[randomIndex];
+    eligibleNames[randomIndex] = tempName;
+  }
+
   if (drawing.complete != "true") {
     drawing.complete = "true";
 
@@ -150,6 +158,9 @@ router.get("/raffle/drawing/:id", async (request, response, next) => {
   });
 });
 
+//! GET /raffle/details/undefined HTTP/1.1
+//!
+//! HOW DIS BBUG?
 router.get("/raffle/details/:id", async (request, response, next) => {
   // Look up the requested id
   var entrant;
