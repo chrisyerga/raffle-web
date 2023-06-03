@@ -8,11 +8,12 @@ require("dotenv").config();
 const router = express.Router();
 
 router.get("/raffle/register", async (request, response, next) => {
-  response.render("register", {
-    title: "Test Page",
-    message: "Hello there!",
-    page: request.path,
-  });
+  response.redirect("/raffle/drawing");
+  //   response.render("register", {
+  //     title: "Test Page",
+  //     message: "Hello there!",
+  //     page: request.path,
+  //   });
 });
 
 router.post("/raffle/register", async (request, response, next) => {
@@ -30,6 +31,9 @@ router.post("/raffle/register", async (request, response, next) => {
     response.redirect("registration-complete");
   } catch (err) {
     console.log("Error adding new registrant: " + err.message);
+    response.redirect(
+      "register?toastMessage='That email has already registered'"
+    );
   }
 });
 
@@ -39,6 +43,7 @@ router.post("/raffle/details/:id", async (request, response, next) => {
   console.log(`Editing notes for: ${JSON.stringify(entrant)}`.blue);
   entrant.notes = body.notes;
   await entrant.save();
+  console.log("router - redirect");
   response.redirect(
     `/raffle/details/${request.params.id}?toastMessage=${body.toastMessage}`
   );
