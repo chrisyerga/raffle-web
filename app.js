@@ -152,7 +152,7 @@ app.use((req, res, next) => {
   if (req.isAuthenticated) {
     console.log(
       req.isAuthenticated()
-        ? "   AUTHENTICATED   ".bgBlue.black
+        ? "   AUTHENTICATED   ".bgBlue.black + "\n  user=" + req.user.name
         : "   NOT AUTHED   ".bgMagenta.black
     );
   }
